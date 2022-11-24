@@ -110,6 +110,15 @@ const LoginPage = ({}) => {
                         </p>
                     )}
 
+                    {user && (
+                        <button
+                            onClick={logout}
+                            className="bg-white mb-5 text-fuchsia-600 py-4 px-10 border-2 border-fuchsia-600 rounded-md hover:bg-fuchsia-600 hover:text-white mt-10 uppercase font-bold transition duration-200"
+                        >
+                            Logout
+                        </button>
+                    )}
+
 
 
                 </main>

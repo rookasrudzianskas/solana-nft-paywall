@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useRouter} from "next/router";
 import {
     useClaimNFT,
@@ -11,9 +11,10 @@ import {
 } from '@thirdweb-dev/react/solana';
 import {useWallet} from "@solana/wallet-adapter-react";
 import {NFT} from "@thirdweb-dev/sdk";
+import {wallet} from "./_app";
 
 const LoginPage = ({}) => {
-    const [userNfts, setUserNfts] = useState<NFT | undefined>();
+    const [userNft, setUserNft] = useState<NFT | undefined>();
     const login = useLogin();
     const logout = useLogout();
     const route = useRouter();
@@ -25,6 +26,24 @@ const LoginPage = ({}) => {
     const { data: unclaimedSupply } = useDropUnclaimedSupply(program);
     const { data: nfts, isLoading } = useNFTs(program);
     const { mutateAsync: claim } = useClaimNFT(program);
+
+    useEffect(() => {
+        if(!publicKey) {
+            select(wallet.name);
+            connect();
+        }
+    }, [publicKey, wallet]);
+
+    useEffect(() => {
+        if(!user || !nfts) return;
+
+        const userNfts = nfts.filter(nft => nft.owner === user?.address);
+
+        if(userNfts) {
+            // @ts-ignore
+            setUserNft(userNfts);
+        }
+    }, [nfts, user]);
 
     return (
         <div className="flex min-h-screen flex-col items-center justify-center text-center bg-[#F5AB0B]">

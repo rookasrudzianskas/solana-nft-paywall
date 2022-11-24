@@ -28,9 +28,9 @@ export const getServerSideProps: GetServerSideProps = async ({req, res}) => {
     }
 
     return {
-        props: {title: "ROKAS"},
+        props: {},
     }
-}
+};
 
 const Home: NextPage = () => {
   return (

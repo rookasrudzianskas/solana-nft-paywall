@@ -97,6 +97,21 @@ const LoginPage = ({}) => {
                         </Link>
                     )}
 
+                    {!userNft && !isLoading && (unclaimedSupply && unclaimedSupply > 0) ? (
+                        <button
+                            onClick={handlePurchase}
+                            className="text-2xl font-bold mb-5 bg-fuchsia-600 text-white py-4 px-10 border-2 border-fusbg-fuchsia-600 animate-pulse rounded-md transition duration-200 hover:bg-white hover:text-fuchsia-600 mt-5 uppercase"
+                        >
+                            Purchase Membership
+                        </button>
+                    ) : (
+                        <p className="text-2xl font-bold mb-5 bg-red-500 text-white py-4 px-10 border-2 border-red-500 rounded-md uppercase transition duration-200">
+                            Sorry, we're all out of Boring Membership passes!
+                        </p>
+                    )}
+
+
+
                 </main>
         </div>
     );

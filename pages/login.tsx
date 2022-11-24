@@ -13,6 +13,7 @@ import {useWallet} from "@solana/wallet-adapter-react";
 import {NFT} from "@thirdweb-dev/sdk";
 import {wallet} from "./_app";
 import Image from "next/image";
+import Link from "next/link";
 
 const LoginPage = ({}) => {
     const [userNft, setUserNft] = useState<NFT | undefined>();
@@ -38,7 +39,7 @@ const LoginPage = ({}) => {
     useEffect(() => {
         if(!user || !nfts) return;
 
-        const userNfts = nfts.filter(nft => nft.owner === user?.address);
+        const userNfts = nfts.filter((nft) => nft.owner === user?.address);
 
         if(userNfts) {
             // @ts-ignore
@@ -87,6 +88,13 @@ const LoginPage = ({}) => {
                         <div className="text-2xl font-bold mb-5 bg-fuchsia-600 text-white py-4 px-10 border-2 border-fusbg-fuchsia-600 animate-pulse rounded-md transition duration-200">
                             Hold on, we're just looking for your Boring Membership pass
                         </div>
+                    )}
+
+                    {/* @ts-ignore */}
+                    {(userNft && (userNft.length > 0)) && (
+                        <Link className="text-2xl font-bold mb-5 bg-fuchsia-600 text-white py-4 px-10 border-2 border-fusbg-fuchsia-600 animate-pulse rounded-md transition duration-200 hover:bg-white hover:text-fuchsia-600 mt-5 uppercase" href={'/'}>
+                            ACCESS GRANTED - ENTER
+                        </Link>
                     )}
 
                 </main>

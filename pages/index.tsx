@@ -16,7 +16,20 @@ export const getServerSideProps: GetServerSideProps = async ({req, res}) => {
         }
     };
 
+    const program = await sdk.getNFTDrop(process.env.NEXT_PUBLIC_PROGRAM_ADDRESS!);
+    const nfts = await program.getAllClaimed();
+    const nft = nfts.find((nft) => nft.owner === user.address);
 
+    if(!nft) {
+        return {
+            destination: "/login",
+            permanent: false,
+        }
+    }
+
+    return {
+        props: {title: "ROKAS"},
+    }
 }
 
 const Home: NextPage = () => {

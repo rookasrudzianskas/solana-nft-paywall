@@ -1,6 +1,23 @@
-import type { NextPage } from 'next'
+import { ThirdwebSDK } from '@thirdweb-dev/sdk/solana';
+import type {GetServerSideProps, NextPage} from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import {network} from "./_app";
+import {getUser} from "../auth.config";
+
+export const getServerSideProps: GetServerSideProps = async ({req, res}) => {
+    const sdk = ThirdwebSDK.fromNetwork(network);
+    const user = await getUser(req);
+
+    if(!user) {
+        return {
+            destination: "/login",
+            permanent: false,
+        }
+    };
+
+
+}
 
 const Home: NextPage = () => {
   return (
